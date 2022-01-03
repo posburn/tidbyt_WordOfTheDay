@@ -32,7 +32,7 @@ def main():
                 children = [
                     render.Text(content = word, font = "tb-8", color = "#FFFFFF"),
                     render.Box(width = 64, height = 1, color = "#670801",),
-                    render.Marquee(height = 24, scroll_direction = "vertical",
+                    render.Marquee(height = 32, scroll_direction = "vertical",
                         child = render.WrappedText(
                             content = definition, 
                             font = "tom-thumb", 
