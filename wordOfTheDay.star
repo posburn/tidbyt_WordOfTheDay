@@ -1,5 +1,6 @@
 load("render.star", "render")
 load("http.star", "http")
+load("re.star", "re")
 
 def main():
     rep = http.get("https://www.merriam-webster.com/word-of-the-day")
@@ -22,6 +23,11 @@ def main():
     txt = txt.replace("<p>","").replace("</p>","")
     txt = txt.replace("<em>","").replace("</em>","")
     txt = txt.replace("// ","").replace("\"","")
+    txt = txt.replace("</a>","")
+    
+    # Remove anchor tags
+    pattern = "<a[^>]*>"
+    txt = re.sub(pattern, "", txt)
 
     definition = txt.lstrip().capitalize()
     
@@ -29,13 +35,13 @@ def main():
         delay = 100,
         child = render.Column(
             children = [
-                render.Text(content = word, font = "tb-8", color = "#FFFFFF"),
-                render.Box(width = 64, height = 1, color = "#670801",),
-                render.Marquee(height = 31, scroll_direction = "vertical",
+                render.Text(content = word, color = "#FFF"),
+                render.Box(width = 64, height = 2, color = "#511",),
+                render.Marquee(height = 30, scroll_direction = "vertical",
                     child = render.WrappedText(
                         content = definition, 
                         font = "tom-thumb", 
-                        color = "#90CFE9")
+                        color = "#A0A0D0")
                 )
             ],
         )
